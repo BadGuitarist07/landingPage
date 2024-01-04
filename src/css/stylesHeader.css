@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    margin: 50px 70px;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    text-align: center;
+    align-items: center;
+    height: 70px;
+}
