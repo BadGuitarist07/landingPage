@@ -10,7 +10,7 @@ function Main () {
                         a voice, but so does your audience. Create connections with
                         your users as you engage in genuine discussion.
                     </p>
-                    <a href='#'>Register</a>
+                    <a href='#top' target="_blank">Register</a>
                 </div>
             </div>
         </div>
