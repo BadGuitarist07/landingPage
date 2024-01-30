@@ -42,5 +42,4 @@ jobs:
           git config --global user.name "BadGuitarist07"
 
       - name: Deploy to GitHub Pages
-        run: |
-          gh-pages -d build
+        run: gh-pages -d build -t ${{ secrets.GH_TOKEN }}
