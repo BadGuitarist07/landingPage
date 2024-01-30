@@ -1,22 +1,33 @@
-name: CI
+name: CI/CD
 
-on: 
+on:
   push:
     branches:
       - main
 
-
 jobs:
   test:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
 
-    steps: 
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run tests
-      run: npm test
+      - name: Run tests
+        run: npm test
 
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          branch: gh-pages
+          folder: build
