@@ -14,8 +14,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    -name: Install dependencies
+    - name: Install dependencies
       run: npm install
 
-    -name: Run tests
+    - name: Run tests
       run: npm test
+
