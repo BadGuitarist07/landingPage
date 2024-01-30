@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^5.0.1n",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -17,9 +17,21 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+
+    "testEnvironment": "jsdom"
+  },
+
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -39,7 +51,15 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/plugin-transform-runtime": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "babel-jest": "^29.7.0",
+    "babel-plugin-inline-react-svg": "^2.0.2",
     "babel-preset-react-app": "^10.0.1",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.1.1",
+    "jsdom": "^24.0.0",
+    "jsdom-global": "^3.0.2"
   }
 }

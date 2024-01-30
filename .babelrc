@@ -1,0 +1,17 @@
+{
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "plugins": [
+    [
+    "babel-plugin-inline-react-svg",
+    {
+        "svgo": {
+            "plugins": [
+            { "name": "removeViewBox", "active": false },
+            { "name": "removeXMLNS", "active": false }
+            // ... otras configuraciones de svgo que puedas necesitar
+            ]
+        }
+    }
+    ]
+    ]
+}
