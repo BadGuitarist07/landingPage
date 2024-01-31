@@ -33,13 +33,17 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Install gh-pages
-        run: npm install -g gh-pages
-
       - name: Configure Git identity
         run: |
-          git config --global user.mail "BadGuitarist07@gmail.com"
+          git config --global user.email "BadGuitarist07@gmail.com"
           git config --global user.name "BadGuitarist07"
 
+      - name: Configure Git credentials
+        run: echo "//github.com/${{ github.repository }}.git//?ref=${{ github.sha }}" > $HOME/.git-credentials
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: Deploy to GitHub Pages
-        run: gh-pages -d build -t ${{ secrets.GH_TOKEN }}
+        run: gh-pages -d build -e $HOME/.git-credentials
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
