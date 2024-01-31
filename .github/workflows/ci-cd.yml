@@ -41,12 +41,11 @@ jobs:
           git config --global user.email "BadGuitarist07@gmail.com"
           git config --global user.name "BadGuitarist07"
 
-      - name: Configure Git credentials
-        run: echo "//github.com/${{ github.repository }}.git//?ref=${{ github.sha }}" > $HOME/.git-credentials
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
       - name: Deploy to GitHub Pages
-        run: gh-pages -d build -e $HOME/.git-credentials
+        run: |
+          git remote set-url origin "https://${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git push origin :gh-pages
+          git subtree push --prefix build origin gh-pages
+
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
