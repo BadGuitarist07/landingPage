@@ -1,34 +1,51 @@
-deploy:
-  needs: test
-  runs-on: ubuntu-latest
+name: CI/CD
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+on:
+  push:
+    branches:
+      - master
 
-    - name: Install dependencies
-      run: npm install
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-    - name: Build
-      run: npm run build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    # Paso para depurar la URL remota del repositorio
-    - name: Debug Remote URL
-      run: echo "Remote URL: https://${GH_TOKEN}@github.com/${{ github.repository }}"
-      
-    - name: Install gh-pages
-      run: npm install -g gh-pages
+      - name: Install dependencies
+        run: npm install
 
-    - name: Configure Git identity
-      run: |
-        git config --global user.email "BadGuitarist07@gmail.com"
-        git config --global user.name "BadGuitarist07"
+      - name: Run tests
+        run: npm test
 
-    - name: Deploy to GitHub Pages
-      run: |
-        git remote set-url origin "https://${GH_TOKEN1}@github.com/${{ github.repository }}.git"
-        git push origin :gh-pages
-        git subtree push --prefix build origin gh-pages
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
 
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN1 }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Install gh-pages
+        run: npm install -g gh-pages
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "BadGuitarist07@gmail.com"
+          git config --global user.name "BadGuitarist07"
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git remote set-url origin "https://${GH_TOKEN2}@github.com/${{ github.repository }}.git"
+          git push origin :gh-pages
+          git subtree push --prefix build origin gh-pages
+
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN2 }}
