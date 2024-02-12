@@ -41,6 +41,10 @@ jobs:
           git config --global user.email "BadGuitarist07@gmail.com"
           git config --global user.name "BadGuitarist07"
 
+      - name: Debug Remote URL
+        run: echo "Remote URL: https://'${GH_TOKEN2}'@github.com/${{ github.repository }}"
+
+      
       - name: Deploy to GitHub Pages
         run: |
           git remote set-url origin "https://${GH_TOKEN2}@github.com/${{ github.repository }}.git"
