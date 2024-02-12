@@ -43,9 +43,9 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          git remote set-url origin "https://${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git remote set-url origin "https://${GH_TOKEN2}@github.com/${{ github.repository }}.git"
           git push origin :gh-pages
           git subtree push --prefix build origin gh-pages
 
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN2: ${{ secrets.GH_TOKEN2 }}
