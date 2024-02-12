@@ -1,51 +1,34 @@
-name: CI/CD
+deploy:
+  needs: test
+  runs-on: ubuntu-latest
 
-on:
-  push:
-    branches:
-      - master
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+    - name: Install dependencies
+      run: npm install
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Build
+      run: npm run build
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Install gh-pages
-        run: npm install -g gh-pages
-
-      - name: Configure Git identity
-        run: |
-          git config --global user.email "BadGuitarist07@gmail.com"
-          git config --global user.name "BadGuitarist07"
+    # Paso para depurar la URL remota del repositorio
+    - name: Debug Remote URL
+      run: echo "Remote URL: https://${GH_TOKEN}@github.com/${{ github.repository }}"
       
-      - name: Deploy to GitHub Pages
-        run: |
-          git remote set-url origin "https://${{ secrets.GH_TOKEN2 }}@github.com/${{ github.repository }}.git"
-          git push origin :gh-pages
-          git subtree push --prefix build origin gh-pages
+    - name: Install gh-pages
+      run: npm install -g gh-pages
 
-        env:
-          GH_TOKEN2: ${{ secrets.GH_TOKEN2 }}
+    - name: Configure Git identity
+      run: |
+        git config --global user.email "BadGuitarist07@gmail.com"
+        git config --global user.name "BadGuitarist07"
+
+    - name: Deploy to GitHub Pages
+      run: |
+        git remote set-url origin "https://${GH_TOKEN1}@github.com/${{ github.repository }}.git"
+        git push origin :gh-pages
+        git subtree push --prefix build origin gh-pages
+
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN1 }}
